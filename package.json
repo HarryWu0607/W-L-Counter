@@ -1,0 +1,34 @@
+{
+  "name": "win-loss-counter",
+  "version": "1.0.0",
+  "description": "A Win/Loss Counter Desktop App (React + Electron)",
+  "main": "main.js",
+  "scripts": {
+    "start": "concurrently \"cd frontend && npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "build": "cd frontend && npm run build && electron-builder",
+    "package": "electron-builder --win --mac --linux"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "wait-on": "^8.0.3"
+  },
+  "devDependencies": {
+    "electron": "^35.0.3",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.example.winloss",
+    "productName": "WinLossCounter",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "frontend/dist/**/*",
+      "main.js",
+      "package.json"
+    ],
+    "electronVersion": "35.0.3"
+  },
+  "author": "Your Name",
+  "license": "ISC"
+}
