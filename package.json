@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "concurrently \"cd frontend && npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
-    "build": "cd frontend && npm run build && cd .. && electron-builder",
+    "build": "cd frontend && npm run build && cd .. && electron-builder -c.electronVersion=35.0.3",
     "package": "electron-builder --win --mac --linux"
   },
   "dependencies": {
@@ -24,20 +24,40 @@
     },
     "electronVersion": "35.0.3",
     "win": {
-      "target": ["zip", "nsis"]
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64"]
+        }
+      ],
+      "compression": "store"  // ✅ Fixes 7-Zip crash in GitHub Actions
     },
     "mac": {
-      "target": ["zip", "dmg"]
+      "target": ["zip", "dmg"],
+      "hardenedRuntime": true,
+      "entitlements": "entitlements.mac.plist",
+      "entitlementsInherit": "entitlements.mac.plist"
     },
     "linux": {
       "target": ["AppImage"]
-  },
+    },
     "files": [
       "frontend/dist/**/*",
       "main.js",
       "package.json"
-    ]
+    ],
+    "publish": {
+      "provider": "github",
+      "releaseType": "release"
+    }
   },
-  "author": "Your Name",
-  "license": "ISC"
+  "author": "Harry Wu",
+  "license": "ISC",
+  "env": {
+    "GH_TOKEN": "${{ secrets.GH_TOKEN }}"  // ✅ Adds GH_TOKEN for GitHub Releases
+  }
 }

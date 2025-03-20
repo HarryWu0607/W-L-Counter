@@ -33,20 +33,26 @@ jobs:
 
       - name: Build the App
         run: npm run build && electron-builder -c.electronVersion=35.0.3
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # ✅ Use Personal Access Token
 
       - name: Upload Windows Artifacts
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
           name: Windows Build
-          path: dist/WinLossCounter-*.exe
+          path: |
+            dist/WinLossCounter-*.exe
+            dist/WinLossCounter-*.zip
 
       - name: Upload macOS Artifacts
         if: matrix.os == 'macos-latest'
         uses: actions/upload-artifact@v4
         with:
           name: macOS Build
-          path: dist/WinLossCounter-*.dmg
+          path: |
+            dist/WinLossCounter-*.dmg
+            dist/WinLossCounter-*.zip
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -54,4 +60,5 @@ jobs:
           files: |
             dist/WinLossCounter-*.exe
             dist/WinLossCounter-*.dmg
-          token: ${{ secrets.GH_TOKEN }}
+            dist/WinLossCounter-*.zip
+          token: ${{ secrets.GH_TOKEN }}  # ✅ Use GH_TOKEN for authentication
