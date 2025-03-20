@@ -34,7 +34,7 @@
           "arch": ["x64"]
         }
       ],
-      "compression": "store"  // ✅ Fixes 7-Zip crash in GitHub Actions
+      "compression": "store" 
     },
     "mac": {
       "target": ["zip", "dmg"],
@@ -58,6 +58,6 @@
   "author": "Harry Wu",
   "license": "ISC",
   "env": {
-    "GH_TOKEN": "${{ secrets.GH_TOKEN }}"  // ✅ Adds GH_TOKEN for GitHub Releases
+    "GH_TOKEN": "${{ secrets.GH_TOKEN }}"  
   }
 }
