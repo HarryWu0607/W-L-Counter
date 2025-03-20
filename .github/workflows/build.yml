@@ -31,8 +31,9 @@ jobs:
       - name: Install Vite
         run: npm install --save-dev vite
 
-      - name: Build the App
-        run: npm run build
+      - name: Build the App with Electron Version
+        run: npm run build -- -c.electronVersion=35.0.3
+
 
       - name: Upload Windows Artifacts
         uses: actions/upload-artifact@v4
