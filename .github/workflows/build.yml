@@ -19,8 +19,11 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Dependencies
+      - name: Install Backend Dependencies
         run: npm install
+
+      - name: Install Frontend Dependencies
+        run: cd frontend && npm install
 
       - name: Install Vite
         run: npm install --save-dev vite
