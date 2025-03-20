@@ -1,0 +1,38 @@
+name: Build and Release WinLossCounter
+
+on:
+  push:
+    tags:
+      - 'v*' # Runs only when you push a tag like v1.0.0
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build the App
+        run: npm run build
+
+      - name: Upload Windows Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows Build
+          path: dist/WinLossCounter-*.exe
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/WinLossCounter-*.exe
+          token: ${{ secrets.GITHUB_TOKEN }}

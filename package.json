@@ -22,6 +22,15 @@
     "directories": {
       "output": "dist"
     },
+    "win": {
+      "target": ["zip", "nsis"]
+    },
+    "mac": {
+      "target": ["zip", "dmg"]
+    },
+    "linux": {
+      "target": ["AppImage"]
+  },
     "files": [
       "frontend/dist/**/*",
       "main.js",
