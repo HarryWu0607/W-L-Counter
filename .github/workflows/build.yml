@@ -54,4 +54,4 @@ jobs:
           files: |
             dist/WinLossCounter-*.exe
             dist/WinLossCounter-*.dmg
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
