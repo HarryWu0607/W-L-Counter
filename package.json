@@ -22,6 +22,7 @@
     "directories": {
       "output": "dist"
     },
+    "electronVersion": "35.0.3",
     "win": {
       "target": ["zip", "nsis"]
     },
