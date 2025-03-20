@@ -1,5 +1,5 @@
 // Import Electron modules
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Menu} = require("electron");
 const path = require("path");
 
 function createWindow() {
@@ -19,6 +19,9 @@ function createWindow() {
 //   // Open Developer Tools (optional, for debugging)
 //   win.webContents.openDevTools();
 }
+
+// Remove the default menu bar
+Menu.setApplicationMenu(null);
 
 // Create the window when the app is ready
 app.whenReady().then(createWindow);
