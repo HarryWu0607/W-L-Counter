@@ -26,13 +26,15 @@ jobs:
         run: cd frontend && npm install
 
       - name: Install Electron and Electron-Builder
-        run: npm install electron electron-builder --save-dev
+        run: npm install && npm install electron electron-builder --save-dev
+
 
       - name: Install Vite
         run: npm install --save-dev vite
 
-      - name: Build the App with Electron Version
-        run: npm run build -- -c.electronVersion=35.0.3
+      - name: Build the App
+        run: npm run build && electron-builder -c.electronVersion=35.0.3
+
 
 
       - name: Upload Windows Artifacts

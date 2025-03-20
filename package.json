@@ -36,8 +36,7 @@
       "frontend/dist/**/*",
       "main.js",
       "package.json"
-    ],
-    "electronVersion": "35.0.3"
+    ]
   },
   "author": "Your Name",
   "license": "ISC"
