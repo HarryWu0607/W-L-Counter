@@ -25,9 +25,9 @@ jobs:
       - name: Install Frontend Dependencies
         run: cd frontend && npm install
 
-      - name: Install Electron
-        run: npm install --save-dev electron
-        
+      - name: Install Electron and Electron-Builder
+        run: npm install electron electron-builder --save-dev
+
       - name: Install Vite
         run: npm install --save-dev vite
 
