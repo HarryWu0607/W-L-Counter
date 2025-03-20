@@ -29,10 +29,13 @@ jobs:
         run: cd frontend && npm install
 
       - name: Install Electron and Electron-Builder
-        run: npm install && npm install electron electron-builder --save-dev
+        run: npm install electron electron-builder --save-dev
+
+      - name: Ensure Electron-Builder is Installed
+        run: npx electron-builder --version  # ✅ Verifies electron-builder is installed
 
       - name: Build the App
-        run: npm run build && electron-builder -c.electronVersion=35.0.3
+        run: npm run build && npx electron-builder -c.electronVersion=35.0.3
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}  # ✅ Use Personal Access Token
 
