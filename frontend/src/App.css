@@ -47,14 +47,24 @@ body {
 }
 
 
-button {
-  background-color: #b78399 !important;
-  border-color: #b78399 !important;
-  color: white !important;
-  transition: background-color 0.3s ease-in-out;
+.custom-button.pink {
+  background-color: #b78399;
+  border: 2px solid #b78399;
+  color: white;
 }
 
-button:hover {
-  background-color: #9e6785 !important; /* Slightly darker shade */
-  border-color: #9e6785 !important;
+.custom-button.omori {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+}
+
+.custom-button.pink:hover {
+  background-color: #9e6785;
+  border-color: #9e6785;
+}
+
+.custom-button.omori:hover {
+  background-color: #f0f0f0;
+  border-color: #000000;
 }
