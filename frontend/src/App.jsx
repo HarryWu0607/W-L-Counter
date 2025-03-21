@@ -38,14 +38,20 @@ function App() {
   useEffect(() => {
     const savedWins = localStorage.getItem("wins");
     const savedLosses = localStorage.getItem("losses");
+    const savedTheme = localStorage.getItem("theme");
     if (savedWins) setWins(parseInt(savedWins));  
     if (savedLosses) setLosses(parseInt(savedLosses));
+    if (savedTheme === "pink" || savedTheme === "omori") setTheme(savedTheme);
   }, []);
 
   useEffect(() => {
     localStorage.setItem("wins", wins);
     localStorage.setItem("losses", losses);
   }, [wins, losses]);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const totalGames = wins + losses;
   const winPercentage = totalGames > 0 ? ((wins / totalGames) * 100).toFixed(2) : 0;
@@ -106,9 +112,19 @@ function App() {
 
 
   // Theme toggle (bunny click)
-  const toggleTheme = () => {
-    setTheme(prev => (prev === "pink" ? "omori" : "pink"));
-  };
+    const toggleTheme = () => {
+      setTheme(prev => {
+        const newTheme = prev === "pink" ? "omori" : "pink";
+        
+        // Reset GIF mode to default when switching theme
+        if (newTheme === "omori") {
+          setUseAltGifs(false); // Always use default Omori GIFs
+        }
+    
+        return newTheme;
+      });
+    };
+  
   
 
   return (
