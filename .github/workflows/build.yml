@@ -1,0 +1,67 @@
+name: Build and Release WinLossCounter
+
+on:
+  push:
+    tags:
+      - 'v*' # Runs only when you push a tag like v1.0.0
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]  # ✅ Supports both Windows & macOS
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Backend Dependencies
+        run: npm install
+
+      - name: Install Frontend Dependencies
+        run: cd frontend && npm install
+
+      - name: Install Electron and Electron-Builder
+        run: npm install electron electron-builder --save-dev
+
+      - name: Ensure Electron-Builder is Installed
+        run: npx electron-builder --version  # ✅ Verifies electron-builder is installed
+
+      - name: Build the App
+        run: npm run build && npx electron-builder -c.electronVersion=35.0.3
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # ✅ Use Personal Access Token
+
+      - name: Upload Windows Artifacts
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows Build
+          path: |
+            dist/WinLossCounter-*.exe
+            dist/WinLossCounter-*.zip
+
+      - name: Upload macOS Artifacts
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: macOS Build
+          path: |
+            dist/WinLossCounter-*.dmg
+            dist/WinLossCounter-*.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/WinLossCounter-*.exe
+            dist/WinLossCounter-*.dmg
+            dist/WinLossCounter-*.zip
+          token: ${{ secrets.GH_TOKEN }}  # ✅ Use GH_TOKEN for authentication
